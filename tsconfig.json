@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "composite": true,
+    "outDir": "hooks",
+    "rootDir": "hooks/src",
+    "types": ["node"]
+  },
+  "references": [{ "path": "modules/types" }],
+  "include": ["hooks/src/**/*.mts"],
+  "exclude": ["node_modules"]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "claude-rules",
+  "version": "0.1.0",
+  "description": "Claude Code 向けのカスタムフック集。区切り目的のecho/printf検知、Minecraft NeoForge/Flutter/Androidの開発用クライアント起動防止、ワークスペース外へのrm -rf実行時の確認、AskUserQuestionの無効化を提供します。",
+  "author": {
+    "name": "Hashibutogarasu"
+  },
+  "repository": "https://github.com/Hashibutogarasu/ClaudeRules",
+  "license": "MIT",
+  "keywords": ["hooks", "safety", "workflow"]
+}

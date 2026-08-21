@@ -1,0 +1,13 @@
+{
+  "name": "ClaudeRules",
+  "owner": {
+    "name": "Hashibutogarasu"
+  },
+  "plugins": [
+    {
+      "name": "claude-rules",
+      "source": "./",
+      "description": "Claude Code 向けのカスタムフック集（echo/printf区切り検知、開発用クライアント起動防止、rm -rf確認、AskUserQuestion無効化）"
+    }
+  ]
+}

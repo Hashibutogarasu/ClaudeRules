@@ -1,0 +1,9 @@
+{
+  "echoSeparatorDenied": "冗長なecho出力は許可されていません。",
+  "printfSeparatorDenied": "冗長なprintf出力は許可されていません。",
+  "neoforgeClientLaunchDenied": "NeoForge mod開発中のクライアント起動は許可されていません。",
+  "flutterRunDenied": "flutter run によるクライアント/Webサーバーの起動は許可されていません。",
+  "androidLaunchDenied": "Androidアプリの起動は許可されていません。",
+  "rmOutsideWorkspaceAsk": "ワークスペース外のファイルを rm -rf で削除しようとしています。実行前に確認してください。",
+  "askUserQuestionDenied": "質問は不要です。"
+}

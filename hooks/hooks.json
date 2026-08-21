@@ -1,0 +1,51 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/block-printf-separator.mjs\"",
+            "statusMessage": "Checking for printf-as-separator patterns..."
+          },
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/block-echo-separator.mjs\"",
+            "statusMessage": "Checking for echo-as-separator patterns..."
+          },
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/block-neoforge-client.mjs\"",
+            "statusMessage": "Checking for NeoForge client launch..."
+          },
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/block-flutter-run.mjs\"",
+            "statusMessage": "Checking for flutter run..."
+          },
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/block-android-launch.mjs\"",
+            "statusMessage": "Checking for Android app launch..."
+          },
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/confirm-rm-rf-outside-workspace.mjs\"",
+            "statusMessage": "Checking rm -rf target path..."
+          }
+        ]
+      },
+      {
+        "matcher": "AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/block-ask-user-question.mjs\"",
+            "statusMessage": "Blocking AskUserQuestion..."
+          }
+        ]
+      }
+    ]
+  }
+}

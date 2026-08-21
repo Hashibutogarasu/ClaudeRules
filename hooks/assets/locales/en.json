@@ -1,0 +1,9 @@
+{
+  "echoSeparatorDenied": "Verbose echo output is not allowed.",
+  "printfSeparatorDenied": "Verbose printf output is not allowed.",
+  "neoforgeClientLaunchDenied": "Launching the NeoForge mod development client is not allowed.",
+  "flutterRunDenied": "Running flutter run (client or web server) is not allowed.",
+  "androidLaunchDenied": "Launching an Android app is not allowed.",
+  "rmOutsideWorkspaceAsk": "This rm -rf targets a path outside the workspace. Please confirm before running it.",
+  "askUserQuestionDenied": "Asking a question is unnecessary here."
+}
