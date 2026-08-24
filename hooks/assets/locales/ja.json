@@ -1,6 +1,7 @@
 {
   "echoSeparatorDenied": "冗長なecho出力は許可されていません。",
   "printfSeparatorDenied": "冗長なprintf出力は許可されていません。",
+  "verboseFileDumpDenied": "ループ処理でecho見出しを付けながら複数ファイルをcat/head/tailする冗長な出力は許可されていません。Readツールでファイルごとに読んでください。",
   "neoforgeClientLaunchDenied": "NeoForge mod開発中のクライアント起動は許可されていません。",
   "flutterRunDenied": "flutter run によるクライアント/Webサーバーの起動は許可されていません。",
   "androidLaunchDenied": "Androidアプリの起動は許可されていません。",

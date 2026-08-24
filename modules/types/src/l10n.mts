@@ -5,6 +5,7 @@
 export interface Messages {
   echoSeparatorDenied: string;
   printfSeparatorDenied: string;
+  verboseFileDumpDenied: string;
   neoforgeClientLaunchDenied: string;
   flutterRunDenied: string;
   androidLaunchDenied: string;

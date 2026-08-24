@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "pnpm --filter @claude-rules/types run build && tsc -b",
-    "install-plugin": "pnpm run build && claude plugin marketplace add ./ && claude plugin install claude-rules@ClaudeRules",
-    "uninstall-plugin": "claude plugin uninstall claude-rules@ClaudeRules && claude plugin marketplace remove ClaudeRules"
+    "plugin:install": "pnpm run build && claude plugin marketplace add ./ && claude plugin install claude-rules@ClaudeRules",
+    "plugin:remove": "claude plugin uninstall claude-rules@ClaudeRules && claude plugin marketplace remove ClaudeRules"
   },
   "dependencies": {
     "@claude-rules/types": "workspace:*"

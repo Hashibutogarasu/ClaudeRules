@@ -19,6 +19,10 @@ export declare class EchoSeparatorDeniedError extends HookDecisionError {
 export declare class PrintfSeparatorDeniedError extends HookDecisionError {
     constructor();
 }
+/** Thrown when a loop dumps multiple files' contents behind `echo` headers instead of using the Read tool. */
+export declare class VerboseFileDumpDeniedError extends HookDecisionError {
+    constructor();
+}
 /** Thrown when a command launches a NeoForge mod's development client. */
 export declare class NeoForgeClientLaunchDeniedError extends HookDecisionError {
     constructor();

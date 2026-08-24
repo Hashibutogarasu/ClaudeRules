@@ -16,6 +16,11 @@
           },
           {
             "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/block-verbose-file-dump.mjs\"",
+            "statusMessage": "Checking for verbose echo-headed file dumps..."
+          },
+          {
+            "type": "command",
             "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/block-neoforge-client.mjs\"",
             "statusMessage": "Checking for NeoForge client launch..."
           },

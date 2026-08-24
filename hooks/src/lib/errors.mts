@@ -32,6 +32,13 @@ export class PrintfSeparatorDeniedError extends HookDecisionError {
   }
 }
 
+/** Thrown when a loop dumps multiple files' contents behind `echo` headers instead of using the Read tool. */
+export class VerboseFileDumpDeniedError extends HookDecisionError {
+  constructor() {
+    super("multiple files dumped with echo headers inside a loop", "deny", "verboseFileDumpDenied");
+  }
+}
+
 /** Thrown when a command launches a NeoForge mod's development client. */
 export class NeoForgeClientLaunchDeniedError extends HookDecisionError {
   constructor() {

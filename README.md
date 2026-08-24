@@ -5,6 +5,7 @@ A Claude Code plugin providing a set of PreToolUse hooks, implemented in TypeScr
 ## Hooks
 
 - Detects and denies `echo` / `printf` used purely as a visual separator between commands
+- Denies loops (`for`/`while`/`xargs`) that dump multiple files' contents behind `echo` headers instead of reading them individually
 - Denies launching a NeoForge mod's development client (`./gradlew runClient`, etc.)
 - Denies running `flutter run` (client or web-server targets)
 - Denies launching an Android app natively (`adb shell am start`, etc.)

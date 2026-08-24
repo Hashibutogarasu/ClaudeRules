@@ -1,6 +1,7 @@
 {
   "echoSeparatorDenied": "Verbose echo output is not allowed.",
   "printfSeparatorDenied": "Verbose printf output is not allowed.",
+  "verboseFileDumpDenied": "Dumping multiple files with cat/head/tail under an echo-headed loop is not allowed. Use the Read tool for each file instead.",
   "neoforgeClientLaunchDenied": "Launching the NeoForge mod development client is not allowed.",
   "flutterRunDenied": "Running flutter run (client or web server) is not allowed.",
   "androidLaunchDenied": "Launching an Android app is not allowed.",
