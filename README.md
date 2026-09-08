@@ -12,6 +12,10 @@ A Claude Code plugin providing a set of PreToolUse hooks, implemented in TypeScr
 - Asks for confirmation when `rm -rf` targets a path outside the workspace
 - Denies every `AskUserQuestion` call
 
+## Commands
+
+- `/pr [base-branch]` — commits any pending changes and opens a pull request following this repo's commit message and PR body conventions (see `.github/PULL_REQUEST_TEMPLATE/`)
+
 ## Setup
 
 ```sh
@@ -33,3 +37,5 @@ pnpm run uninstall-plugin
 - `hooks/src` — each hook's implementation (TypeScript, `.mts`)
 - `hooks/assets/locales` — JSON locale assets managing the hooks' deny/ask reason messages
 - `hooks/*.mjs` — build output (compiled by `tsc`, referenced from `hooks.json`)
+- `commands/` — custom slash commands (e.g. `/pr`)
+- `.github/PULL_REQUEST_TEMPLATE/` — `human.md` (shown when opening a PR by hand) and `ai.md` (the body-generation rules `/pr` follows)
