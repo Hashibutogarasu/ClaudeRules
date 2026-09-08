@@ -27,11 +27,11 @@ export declare class VerboseFileDumpDeniedError extends HookDecisionError {
 export declare class NeoForgeClientLaunchDeniedError extends HookDecisionError {
     constructor();
 }
-/** Thrown when a command runs `flutter run`. */
+/** Thrown when a command runs `flutter run`/`install`/`devices` against a real device or emulator. */
 export declare class FlutterRunDeniedError extends HookDecisionError {
     constructor();
 }
-/** Thrown when a command launches an Android app natively (adb/emulator/gradlew). */
+/** Thrown when a command installs, launches, or otherwise interacts with a real Android device or emulator. */
 export declare class AndroidLaunchDeniedError extends HookDecisionError {
     constructor();
 }

@@ -3,8 +3,8 @@
   "printfSeparatorDenied": "Verbose printf output is not allowed.",
   "verboseFileDumpDenied": "Dumping multiple files with cat/head/tail under an echo-headed loop is not allowed. Use the Read tool for each file instead.",
   "neoforgeClientLaunchDenied": "Launching the NeoForge mod development client is not allowed.",
-  "flutterRunDenied": "Running flutter run (client or web server) is not allowed.",
-  "androidLaunchDenied": "Launching an Android app is not allowed.",
+  "flutterRunDenied": "flutter run/install/devices against a real device or emulator is not allowed.",
+  "androidLaunchDenied": "Installing, launching, or otherwise interacting with a real Android device or emulator (adb, emulator, gradlew install) is not allowed.",
   "rmOutsideWorkspaceAsk": "This rm -rf targets a path outside the workspace. Please confirm before running it.",
   "askUserQuestionDenied": "Asking a question is unnecessary here."
 }
