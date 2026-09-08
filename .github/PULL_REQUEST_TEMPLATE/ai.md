@@ -13,9 +13,10 @@ hand — a human opening a PR manually should pick `human.md` instead.
 - `## Test plan` is a checklist (`- [ ]` / `- [x]`) of what was actually
   verified, or what still needs verification. Use `[x]` only for checks that
   were actually run in this session.
-- Title: under 70 characters, English, Conventional-Commits-style summary
-  (e.g. `feat: ...`, `fix: ...`), matching this repo's commit message
-  convention.
+- Title: under 70 characters, English, a plain imperative summary of the
+  change. Do not prefix it with a Conventional-Commits type (`feat:`,
+  `fix:`, etc.) — that prefix belongs on commit messages, and on a PR title
+  it's redundant with the branch name.
 - Body language: English, matching this repo's existing commit messages and
   PR bodies — even when the conversation with the user is in another
   language.

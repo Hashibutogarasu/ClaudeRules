@@ -48,9 +48,9 @@ default flow does not force-push.
 ## 4. Compose the PR body
 
 Read `.github/PULL_REQUEST_TEMPLATE/ai.md` in this repository and follow it
-exactly for structure, tone, and the attribution footer. Write the rendered
-body to a file in your scratchpad directory (not `/tmp` directly), then
-create the PR with:
+exactly for structure, tone, title rules, and the attribution footer. Write
+the rendered body to a file in your scratchpad directory (not `/tmp`
+directly), then create the PR with:
 
 ```
 gh pr create --title "<title>" --body-file <scratchpad-file> --base <base-branch>
