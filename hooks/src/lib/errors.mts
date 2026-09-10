@@ -46,17 +46,17 @@ export class NeoForgeClientLaunchDeniedError extends HookDecisionError {
   }
 }
 
-/** Thrown when a command runs `flutter run`. */
+/** Thrown when a command runs `flutter run`/`install`/`devices` against a real device or emulator. */
 export class FlutterRunDeniedError extends HookDecisionError {
   constructor() {
-    super("flutter run is blocked", "deny", "flutterRunDenied");
+    super("flutter run/install/devices is blocked", "deny", "flutterRunDenied");
   }
 }
 
-/** Thrown when a command launches an Android app natively (adb/emulator/gradlew). */
+/** Thrown when a command installs, launches, or otherwise interacts with a real Android device or emulator. */
 export class AndroidLaunchDeniedError extends HookDecisionError {
   constructor() {
-    super("Android app launch is blocked", "deny", "androidLaunchDenied");
+    super("Android device interaction is blocked", "deny", "androidLaunchDenied");
   }
 }
 

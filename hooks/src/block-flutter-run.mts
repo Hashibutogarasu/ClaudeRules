@@ -3,13 +3,13 @@ import { HookChannel } from "./lib/hook-io.mjs";
 import { CommandSplitter } from "./lib/shell.mjs";
 import { FlutterRunDeniedError } from "./lib/errors.mjs";
 
-/** Detects `flutter run` invocations, covering both client and web-server device targets. */
+/** Detects `flutter run`/`install`/`devices` invocations against a real device or emulator. */
 class FlutterRunDetector {
-  private static readonly flutterRunPattern = /\bflutter\s+run\b/;
+  private static readonly flutterRunPattern = /\bflutter\s+(run|install|devices)\b/;
 
   /**
    * @param command - The Bash command about to run.
-   * @throws {FlutterRunDeniedError} When a segment runs `flutter run`.
+   * @throws {FlutterRunDeniedError} When a segment runs `flutter run`/`install`/`devices`.
    */
   static check(command: string): void {
     if (!command) {

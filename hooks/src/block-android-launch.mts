@@ -3,11 +3,21 @@ import { HookChannel } from "./lib/hook-io.mjs";
 import { CommandSplitter } from "./lib/shell.mjs";
 import { AndroidLaunchDeniedError } from "./lib/errors.mjs";
 
-/** Detects commands that launch an Android app natively (adb, emulator, or a Gradle install+launch). */
+/**
+ * Detects commands that install, launch, or otherwise interact with a real
+ * Android device or emulator: `adb` (install, shell am start/monkey/
+ * screencap/dumpsys, exec-out, logcat — tolerating global flags like
+ * `-s <serial>` before the subcommand), `emulator`, or a Gradle
+ * install+launch.
+ */
 class AndroidLaunchDetector {
   private static readonly launchPatterns: readonly RegExp[] = [
-    /\badb\s+shell\s+am\s+start\b/,
-    /\badb\s+shell\s+monkey\b/,
+    /\badb\b(?:\s+-[a-zA-Z-]+(?:\s+\S+)?)*\s+install\b/,
+    /\badb\b(?:\s+-[a-zA-Z-]+(?:\s+\S+)?)*\s+shell\s+am\s+start\b/,
+    /\badb\b(?:\s+-[a-zA-Z-]+(?:\s+\S+)?)*\s+shell\s+monkey\b/,
+    /\badb\b(?:\s+-[a-zA-Z-]+(?:\s+\S+)?)*\s+shell\s+(?:\S+\s+)*(screencap|dumpsys)\b/,
+    /\badb\b(?:\s+-[a-zA-Z-]+(?:\s+\S+)?)*\s+exec-out\b/,
+    /\badb\b(?:\s+-[a-zA-Z-]+(?:\s+\S+)?)*\s+logcat\b/,
     /\bemulator\s+-avd\b/,
     /\bgradlew(?:\.bat)?\b[^&|;]*\binstall(Debug|Release)?\b/,
   ];

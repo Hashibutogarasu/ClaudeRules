@@ -3,8 +3,8 @@
   "printfSeparatorDenied": "冗長なprintf出力は許可されていません。",
   "verboseFileDumpDenied": "ループ処理でecho見出しを付けながら複数ファイルをcat/head/tailする冗長な出力は許可されていません。Readツールでファイルごとに読んでください。",
   "neoforgeClientLaunchDenied": "NeoForge mod開発中のクライアント起動は許可されていません。",
-  "flutterRunDenied": "flutter run によるクライアント/Webサーバーの起動は許可されていません。",
-  "androidLaunchDenied": "Androidアプリの起動は許可されていません。",
+  "flutterRunDenied": "実機/エミュレータに対する flutter run/install/devices の実行は許可されていません。",
+  "androidLaunchDenied": "実機/エミュレータへのAndroidアプリのインストール・起動・その他の操作(adb、emulator、gradlew install)は許可されていません。",
   "rmOutsideWorkspaceAsk": "ワークスペース外のファイルを rm -rf で削除しようとしています。実行前に確認してください。",
   "askUserQuestionDenied": "質問は不要です。"
 }
