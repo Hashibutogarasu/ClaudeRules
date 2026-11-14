@@ -61,7 +61,7 @@ pnpm run plugin:install
 
 ## Releasing
 
-CI (`.github/workflows/ci.yml`) reuses the Karasu-Lab JsWorkflows to format, type check and build on every push and pull request. On a push to `main`, the `release` job reads `version` from `.claude-plugin/plugin.json` and creates a GitHub Release tagged `v<version>-<short commit hash>` (for example `v0.1.0-52c6f18`) with generated notes, unless that tag already exists. Every merge to `main` therefore produces a release, and the base version only needs bumping when it should change.
+CI (`.github/workflows/check-release.yml`) reuses the Karasu-Lab JsWorkflows to format, type check and build on every push and pull request. On a push to `main`, the `release` job reads `version` from `.claude-plugin/plugin.json` and creates a GitHub Release tagged `v<version>-<short commit hash>` (for example `v0.1.0-52c6f18`) with generated notes, unless that tag already exists. Every merge to `main` therefore produces a release, and the base version only needs bumping when it should change.
 
 To change the base version:
 
