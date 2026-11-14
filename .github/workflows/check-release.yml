@@ -19,19 +19,26 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
-              with:
-                  ref: ${{ github.ref_name }}
             - name: Create release tagged with the base version and commit hash
               env:
                   GH_TOKEN: ${{ github.token }}
               run: |
-                  version="$(jq -r .version .claude-plugin/plugin.json)"
-                  tag="v${version}-$(git rev-parse --short=7 "$GITHUB_SHA")"
+                  base="$(jq -r .version .claude-plugin/plugin.json)"
+                  base="${base%%-*}"
+                  version="${base}-$(git rev-parse --short=7 "$GITHUB_SHA")"
+                  tag="v${version}"
                   if gh release view "$tag" > /dev/null 2>&1; then
                       echo "Release $tag already exists"
                       exit 0
                   fi
+                  sed -i -E "s/(\"version\": \")[^\"]*(\")/\1${version}\2/" \
+                      .claude-plugin/plugin.json package.json
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git add .claude-plugin/plugin.json package.json
+                  git commit -m "chore: set version to ${version}"
+                  git push origin "HEAD:${GITHUB_REF_NAME}"
                   gh release create "$tag" \
-                      --target "$GITHUB_SHA" \
+                      --target "$(git rev-parse HEAD)" \
                       --title "$tag" \
                       --generate-notes
