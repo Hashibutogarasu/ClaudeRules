@@ -62,6 +62,9 @@ Use `--body-file`, not `-f body=@file` via `gh api` — the latter sends the
 ## 5. Verify and report
 
 Run `gh pr view <number> --json body -q .body` to confirm the body was set
-as intended. Report the PR URL to the user. Do not ask whether they want to
-commit, verify further, or test on a real device — state that the work is
-done and stop.
+as intended. Report the PR URL to the user. Do not mention whether a
+Conventional-Commits prefix was added to or left off the PR title — the title
+rule in the template already settles it, so restating it each time is noise.
+Likewise, do not report whether changes were committed. Do not ask whether
+they want to commit, verify further, or test on a real device — state that
+the work is done and stop.
