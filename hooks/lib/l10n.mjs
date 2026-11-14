@@ -13,14 +13,18 @@ export class L10nGenerator {
         if (cached) {
             return cached;
         }
-        const assetPath = fileURLToPath(new URL(`../assets/locales/${locale}.json`, import.meta.url));
+        const assetPath = fileURLToPath(
+            new URL(`../assets/locales/${locale}.json`, import.meta.url),
+        );
         const catalog = JSON.parse(readFileSync(assetPath, "utf8"));
         L10nGenerator.catalogCache.set(locale, catalog);
         return catalog;
     }
     static resolveLocale() {
         const lang = process.env.CLAUDE_RULES_LOCALE ?? process.env.LANG ?? "";
-        return lang.toLowerCase().startsWith("en") ? "en" : L10nGenerator.fallbackLocale;
+        return lang.toLowerCase().startsWith("en")
+            ? "en"
+            : L10nGenerator.fallbackLocale;
     }
     /**
      * @param key - The message key to translate.
@@ -32,8 +36,7 @@ export class L10nGenerator {
         let catalog;
         try {
             catalog = L10nGenerator.loadCatalog(L10nGenerator.resolveLocale());
-        }
-        catch {
+        } catch {
             catalog = L10nGenerator.loadCatalog(L10nGenerator.fallbackLocale);
         }
         let message = catalog[key];

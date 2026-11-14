@@ -1,34 +1,35 @@
-import { HookRunner } from "./lib/run-hook.mjs";
-import { HookChannel } from "./lib/hook-io.mjs";
 import { VerboseFileDumpDeniedError } from "./lib/errors.mjs";
+import { HookChannel } from "./lib/hook-io.mjs";
+import { HookRunner } from "./lib/run-hook.mjs";
 
 /** Detects a loop that dumps multiple files' contents behind `echo` headers instead of reading them individually. */
 class VerboseFileDumpDetector {
-  private static readonly loopPattern = /\bfor\s+\S+\s+in\b|\bwhile\b|\bxargs\b/;
+    private static readonly loopPattern =
+        /\bfor\s+\S+\s+in\b|\bwhile\b|\bxargs\b/;
 
-  private static readonly echoPattern = /\becho\b/;
+    private static readonly echoPattern = /\becho\b/;
 
-  private static readonly dumpPattern = /\bcat\b|\bhead\b|\btail\b/;
+    private static readonly dumpPattern = /\bcat\b|\bhead\b|\btail\b/;
 
-  /**
-   * @param command - The Bash command about to run.
-   * @throws {VerboseFileDumpDeniedError} When the command loops over files,
-   *   printing an `echo` header before dumping each one's contents.
-   */
-  static check(command: string): void {
-    if (!command) {
-      return;
+    /**
+     * @param command - The Bash command about to run.
+     * @throws {VerboseFileDumpDeniedError} When the command loops over files,
+     *   printing an `echo` header before dumping each one's contents.
+     */
+    static check(command: string): void {
+        if (!command) {
+            return;
+        }
+        const isVerboseDump =
+            VerboseFileDumpDetector.loopPattern.test(command) &&
+            VerboseFileDumpDetector.echoPattern.test(command) &&
+            VerboseFileDumpDetector.dumpPattern.test(command);
+        if (isVerboseDump) {
+            throw new VerboseFileDumpDeniedError();
+        }
     }
-    const isVerboseDump =
-      VerboseFileDumpDetector.loopPattern.test(command) &&
-      VerboseFileDumpDetector.echoPattern.test(command) &&
-      VerboseFileDumpDetector.dumpPattern.test(command);
-    if (isVerboseDump) {
-      throw new VerboseFileDumpDeniedError();
-    }
-  }
 }
 
 void HookRunner.run((input) => {
-  VerboseFileDumpDetector.check(HookChannel.extractBashCommand(input));
+    VerboseFileDumpDetector.check(HookChannel.extractBashCommand(input));
 });

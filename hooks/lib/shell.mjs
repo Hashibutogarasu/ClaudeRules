@@ -62,11 +62,18 @@ export class CommandSplitter {
                 continue;
             }
             if (ch === "<" && command[i + 1] === "<") {
-                const heredocMatch = CommandSplitter.heredocStartPattern.exec(command.slice(i));
+                const heredocMatch = CommandSplitter.heredocStartPattern.exec(
+                    command.slice(i),
+                );
                 if (heredocMatch) {
-                    i = CommandSplitter.maskHeredocBody(command, i, heredocMatch, (masked) => {
-                        result += masked;
-                    });
+                    i = CommandSplitter.maskHeredocBody(
+                        command,
+                        i,
+                        heredocMatch,
+                        (masked) => {
+                            result += masked;
+                        },
+                    );
                     continue;
                 }
             }
@@ -95,13 +102,16 @@ export class CommandSplitter {
             return n;
         }
         emit(" ".repeat(newlineIdx + 1 - start));
-        const delimiterPattern = dashFlag ? new RegExp(`^[ \\t]*${delimiter}[ \\t]*$`) : new RegExp(`^${delimiter}[ \\t]*$`);
+        const delimiterPattern = dashFlag
+            ? new RegExp(`^[ \\t]*${delimiter}[ \\t]*$`)
+            : new RegExp(`^${delimiter}[ \\t]*$`);
         let lineStart = newlineIdx + 1;
         while (lineStart <= n) {
             const lineEnd = command.indexOf("\n", lineStart);
             const lineEndExclusive = lineEnd === -1 ? n : lineEnd;
             const line = command.slice(lineStart, lineEndExclusive);
-            const lineLenWithNewline = (lineEnd === -1 ? n : lineEnd + 1) - lineStart;
+            const lineLenWithNewline =
+                (lineEnd === -1 ? n : lineEnd + 1) - lineStart;
             emit(" ".repeat(lineLenWithNewline));
             lineStart += lineLenWithNewline;
             if (delimiterPattern.test(line) || lineEnd === -1) {

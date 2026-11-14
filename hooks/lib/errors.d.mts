@@ -9,7 +9,12 @@ export declare abstract class HookDecisionError extends Error {
     readonly decision: HookDecision;
     readonly l10nKey: MessageKey;
     readonly params?: Record<string, string> | undefined;
-    protected constructor(message: string, decision: HookDecision, l10nKey: MessageKey, params?: Record<string, string> | undefined);
+    protected constructor(
+        message: string,
+        decision: HookDecision,
+        l10nKey: MessageKey,
+        params?: Record<string, string> | undefined,
+    );
 }
 /** Thrown when `echo` is used purely as a visual separator between commands. */
 export declare class EchoSeparatorDeniedError extends HookDecisionError {

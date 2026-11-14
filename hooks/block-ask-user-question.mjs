@@ -1,5 +1,5 @@
-import { HookRunner } from "./lib/run-hook.mjs";
 import { AskUserQuestionDeniedError } from "./lib/errors.mjs";
+import { HookRunner } from "./lib/run-hook.mjs";
 /** Unconditionally denies every `AskUserQuestion` call. */
 class AskUserQuestionGate {
     /** @throws {AskUserQuestionDeniedError} Always. */

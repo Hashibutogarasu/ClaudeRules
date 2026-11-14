@@ -10,5 +10,7 @@ export declare class HookRunner {
      * @param detect - Detection logic that throws a {@link HookDecisionError}
      *   subclass to report a deny/ask decision, or returns normally to allow.
      */
-    static run(detect: (input: HookInput) => void | Promise<void>): Promise<void>;
+    static run(
+        detect: (input: HookInput) => void | Promise<void>,
+    ): Promise<void>;
 }
