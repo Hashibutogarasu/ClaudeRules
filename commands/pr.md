@@ -45,5 +45,7 @@ Create a pull request for the current branch's changes, following this repositor
 - Do not mention whether a Conventional-Commits prefix was added to or left off the PR title.
 - Do not report whether changes were committed.
 - Do not report that changes have not been committed yet, or that anything was left uncommitted or unpushed.
+- Do not report checks or verifications that were performed, such as confirming the branch was not yet merged before pushing.
+- Report only what was changed.
 - Do not ask whether the user wants to commit, verify further, or test on a real device.
 - State that the work is done and stop.
