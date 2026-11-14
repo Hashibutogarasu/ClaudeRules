@@ -21,17 +21,17 @@ jobs:
             - uses: actions/checkout@v4
               with:
                   ref: ${{ github.ref_name }}
-            - name: Create release if the plugin version is new
+            - name: Create release tagged with the base version and commit hash
               env:
                   GH_TOKEN: ${{ github.token }}
               run: |
                   version="$(jq -r .version .claude-plugin/plugin.json)"
-                  tag="v${version}"
+                  tag="v${version}-$(git rev-parse --short=7 "$GITHUB_SHA")"
                   if gh release view "$tag" > /dev/null 2>&1; then
                       echo "Release $tag already exists"
                       exit 0
                   fi
                   gh release create "$tag" \
-                      --target "$(git rev-parse HEAD)" \
+                      --target "$GITHUB_SHA" \
                       --title "$tag" \
                       --generate-notes
