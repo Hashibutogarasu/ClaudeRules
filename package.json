@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "postinstall": "pnpm --filter @claude-rules/types run build",
     "build": "pnpm --filter @claude-rules/types run build && tsc -b",
     "plugin:install": "pnpm run build && claude plugin marketplace add ./ && claude plugin install claude-rules@ClaudeRules",
     "plugin:remove": "claude plugin uninstall claude-rules@ClaudeRules && claude plugin marketplace remove ClaudeRules"
