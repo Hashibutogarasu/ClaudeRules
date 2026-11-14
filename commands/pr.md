@@ -4,67 +4,46 @@ argument-hint: "[base-branch]"
 allowed-tools: Bash(git:*), Bash(gh:*), Read, Write
 ---
 
-Create a pull request for the current branch's changes, following this
-repository's existing conventions end to end. The base branch is `$1` if
-given, otherwise `main`.
+Create a pull request for the current branch's changes, following this repository's existing conventions. The base branch is `$1` if given, otherwise `main`.
 
-## 1. Survey the current state
+## Survey
 
-Run `git status`, `git diff`, and `git log --oneline -10` to understand what
-changed and why. If the current branch is the base branch itself and there
-are changes to ship, create a new branch first, named to match this repo's
-existing style (e.g. `feat/<short-topic>`, `fix/<short-topic>`).
+- Run `git status`, `git diff`, and `git log --oneline -10` to understand what changed and why.
+- If the current branch is the base branch itself and there are changes to ship, create a new branch first.
+- Name branches to match this repo's existing style (e.g. `feat/<short-topic>`, `fix/<short-topic>`).
 
-## 2. Commit any uncommitted changes
+## Commit
 
-If there are uncommitted changes, commit them following this repo's
-Conventional-Commits-style convention (see `git log` for real examples):
+- Commit any uncommitted changes following this repo's Conventional-Commits-style convention (see `git log` for real examples).
+- Write messages in English, imperative mood, with a `feat:` / `fix:` / etc. prefix.
+- Use a short summary line, then (for non-trivial changes) a blank line and a body explaining why.
+- Pass multi-line messages via a heredoc, e.g. `git commit -m "$(cat <<'EOF' ... EOF)"`, so this repo's Bash hooks do not misread the message text as shell commands.
+- Append whatever attribution trailer (e.g. `Co-Authored-By:` / `Claude-Session:`) the active session's instructions currently require. Do not invent one if none is given.
+- Never use `echo`/`printf` as a visual separator between commands.
+- Never loop over files printing a filename with `echo` followed by `cat`/`head`/`tail`. Use the Read tool to inspect files instead.
+- Stage specific files by name. Avoid `git add -A` / `git add .` unless `git status` confirms everything staged is meant to be committed.
 
-- English, imperative mood, `feat:` / `fix:` / etc. prefix.
-- A short summary line, then (for non-trivial changes) a blank line and a
-  body explaining *why*.
-- Pass multi-line messages via a heredoc, e.g.
-  `git commit -m "$(cat <<'EOF' ... EOF)"` — this keeps the message text
-  from being misread as literal shell commands by this repo's Bash hooks.
-- Append whatever attribution trailer (e.g. `Co-Authored-By:` /
-  `Claude-Session:`) the active session's instructions currently require.
-  Do not invent one if none is given.
-- Never use `echo`/`printf` as a visual separator between commands, and
-  never loop over files printing a filename with `echo` followed by
-  `cat`/`head`/`tail` — this repo's hooks block both patterns. Use the Read
-  tool to inspect files instead of dumping them through Bash.
-- Stage specific files by name; avoid `git add -A`/`git add .` unless you've
-  confirmed via `git status` that everything staged is meant to be
-  committed.
+## Push
 
-## 3. Push the branch
+- Before pushing, run `git fetch origin` and `gh pr list --head <branch> --state merged --json number` to check whether the current branch has already been merged. A non-empty result means it was merged.
+- If it was merged, do not push to it. Create a new branch from the latest `origin/<base-branch>`, cherry-pick the commits not yet in the base branch (`git log origin/<base-branch>..<old-branch>`), and push the new branch instead.
+- If the branch has no upstream yet, use `git push -u origin <branch>`; otherwise use `git push`.
+- Do not force-push.
+- If the remote branch has commits that need history rewriting (amended/reworded commits), stop and confirm with the user first.
 
-If the branch has no upstream yet, `git push -u origin <branch>`; otherwise
-`git push`. Do not force-push. If the branch already has commits on the
-remote that need history rewriting (amended/reworded commits), stop and
-confirm with the user before doing anything destructive — this command's
-default flow does not force-push.
+## PR body
 
-## 4. Compose the PR body
+- Read `.github/PULL_REQUEST_TEMPLATE/ai.md` in this repository and follow it for structure, tone, title rules, and the attribution footer.
+- Write the rendered body to a file in the scratchpad directory, not `/tmp` directly.
+- Create the PR with `gh pr create --title "<title>" --body-file <scratchpad-file> --base <base-branch>`.
+- Use `--body-file`, not `-f body=@file` via `gh api`, which sends the `@file` string literally.
 
-Read `.github/PULL_REQUEST_TEMPLATE/ai.md` in this repository and follow it
-exactly for structure, tone, title rules, and the attribution footer. Write
-the rendered body to a file in your scratchpad directory (not `/tmp`
-directly), then create the PR with:
+## Report
 
-```
-gh pr create --title "<title>" --body-file <scratchpad-file> --base <base-branch>
-```
-
-Use `--body-file`, not `-f body=@file` via `gh api` — the latter sends the
-`@file` string literally instead of reading the file.
-
-## 5. Verify and report
-
-Run `gh pr view <number> --json body -q .body` to confirm the body was set
-as intended. Report the PR URL to the user. Do not mention whether a
-Conventional-Commits prefix was added to or left off the PR title — the title
-rule in the template already settles it, so restating it each time is noise.
-Likewise, do not report whether changes were committed. Do not ask whether
-they want to commit, verify further, or test on a real device — state that
-the work is done and stop.
+- Run `gh pr view <number> --json body -q .body` to confirm the body was set as intended.
+- Report the PR URL to the user.
+- Do not mention whether a Conventional-Commits prefix was added to or left off the PR title.
+- Do not report whether changes were committed.
+- Do not report that changes have not been committed yet, or that anything was left uncommitted or unpushed.
+- Do not ask whether the user wants to commit, verify further, or test on a real device.
+- State that the work is done and stop.
