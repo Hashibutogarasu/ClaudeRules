@@ -1,6 +1,6 @@
 {
     "name": "claude-rules",
-    "version": "0.1.0",
+    "version": "0.1.0-afcc717",
     "private": true,
     "type": "module",
     "scripts": {
