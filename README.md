@@ -16,20 +16,56 @@ A Claude Code plugin providing a set of PreToolUse hooks, implemented in TypeScr
 
 - `/pr [base-branch]` — commits any pending changes and opens a pull request following this repo's commit message and PR body conventions (see `.github/PULL_REQUEST_TEMPLATE/`)
 
-## Setup
+## Installation
+
+This repository is a Claude Code plugin marketplace (`.claude-plugin/marketplace.json`) that hosts the `claude-rules` plugin (`.claude-plugin/plugin.json`). The compiled hooks (`hooks/*.mjs`) are committed, so no build step is needed to install it.
+
+### From GitHub
+
+```sh
+claude plugin marketplace add Hashibutogarasu/ClaudeRules
+claude plugin install claude-rules@ClaudeRules
+```
+
+Or, inside Claude Code:
+
+```
+/plugin marketplace add Hashibutogarasu/ClaudeRules
+/plugin install claude-rules@ClaudeRules
+```
+
+### Updating
+
+```sh
+claude plugin marketplace update ClaudeRules
+claude plugin update claude-rules@ClaudeRules
+```
+
+### Uninstall
+
+```sh
+claude plugin uninstall claude-rules@ClaudeRules
+claude plugin marketplace remove ClaudeRules
+```
+
+### From a local checkout
 
 ```sh
 pnpm install
-pnpm run install-plugin
+pnpm run plugin:install
 ```
 
-`pnpm run install-plugin` builds the plugin, registers this repository as a local marketplace (`claude plugin marketplace add .`), and installs the plugin (`claude plugin install claude-rules@ClaudeRules`) in one step.
+`pnpm run plugin:install` builds the plugin, registers this checkout as a local marketplace, and installs the plugin in one step. Remove it with `pnpm run plugin:remove`.
 
-## Uninstall
+## Releasing
 
-```sh
-pnpm run uninstall-plugin
-```
+CI (`.github/workflows/ci.yml`) reuses the Karasu-Lab JsWorkflows to format, type check and build on every push and pull request. On a push to `main`, the `release` job reads `version` from `.claude-plugin/plugin.json` and creates a GitHub Release tagged `v<version>` with generated notes, unless that tag already exists.
+
+To cut a release:
+
+1. Bump `version` in `.claude-plugin/plugin.json` (and `package.json` to match).
+2. Run `pnpm run build` and commit the updated `hooks/*.mjs` output.
+3. Merge to `main`. The release is published automatically.
 
 ## Layout
 
