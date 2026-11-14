@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@claude-rules/types':
-        specifier: workspace:*
+        specifier: link:modules/types
         version: link:modules/types
     devDependencies:
       '@types/node':

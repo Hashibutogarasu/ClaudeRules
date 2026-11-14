@@ -10,7 +10,7 @@
         "plugin:remove": "claude plugin uninstall claude-rules@ClaudeRules && claude plugin marketplace remove ClaudeRules"
     },
     "dependencies": {
-        "@claude-rules/types": "workspace:*"
+        "@claude-rules/types": "link:modules/types"
     },
     "devDependencies": {
         "@types/node": "^22.0.0",
