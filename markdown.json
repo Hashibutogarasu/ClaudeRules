@@ -1,0 +1,4 @@
+{
+    "build": "commands/create-pr-template.md",
+    "files": ["commands-src/create-pr-template.md"]
+}

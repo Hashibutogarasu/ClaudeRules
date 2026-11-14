@@ -75,6 +75,7 @@ hand.
 
 - [ ] <verification step>
 ```
+
 ````
 
 ## 4. Create the pull request

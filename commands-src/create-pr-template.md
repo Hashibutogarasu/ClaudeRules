@@ -37,7 +37,7 @@ Create `.github/PULL_REQUEST_TEMPLATE/` if needed and write the following
 content to `.github/PULL_REQUEST_TEMPLATE/ai.md` verbatim:
 
 ````markdown
-{{asset:PR_TEMPLATE.md}}
+#include "assets/PR_TEMPLATE.md"
 ````
 
 ## 4. Create the pull request
