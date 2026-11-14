@@ -1,6 +1,6 @@
-import { HookRunner } from "./lib/run-hook.mjs";
-import { HookChannel } from "./lib/hook-io.mjs";
 import { VerboseFileDumpDeniedError } from "./lib/errors.mjs";
+import { HookChannel } from "./lib/hook-io.mjs";
+import { HookRunner } from "./lib/run-hook.mjs";
 /** Detects a loop that dumps multiple files' contents behind `echo` headers instead of reading them individually. */
 class VerboseFileDumpDetector {
     static loopPattern = /\bfor\s+\S+\s+in\b|\bwhile\b|\bxargs\b/;
@@ -15,7 +15,8 @@ class VerboseFileDumpDetector {
         if (!command) {
             return;
         }
-        const isVerboseDump = VerboseFileDumpDetector.loopPattern.test(command) &&
+        const isVerboseDump =
+            VerboseFileDumpDetector.loopPattern.test(command) &&
             VerboseFileDumpDetector.echoPattern.test(command) &&
             VerboseFileDumpDetector.dumpPattern.test(command);
         if (isVerboseDump) {

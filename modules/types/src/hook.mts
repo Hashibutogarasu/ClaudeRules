@@ -4,10 +4,10 @@
  * payload may contain additional fields that are ignored.
  */
 export interface HookInput {
-  tool_name?: string;
-  tool_input?: Record<string, unknown>;
-  cwd?: string;
-  [key: string]: unknown;
+    tool_name?: string;
+    tool_input?: Record<string, unknown>;
+    cwd?: string;
+    [key: string]: unknown;
 }
 
 /** The permission decision a PreToolUse hook may report back. */

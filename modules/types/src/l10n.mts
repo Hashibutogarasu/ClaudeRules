@@ -3,14 +3,14 @@
  * report back to Claude Code. Every locale catalog must supply all keys.
  */
 export interface Messages {
-  echoSeparatorDenied: string;
-  printfSeparatorDenied: string;
-  verboseFileDumpDenied: string;
-  neoforgeClientLaunchDenied: string;
-  flutterRunDenied: string;
-  androidLaunchDenied: string;
-  rmOutsideWorkspaceAsk: string;
-  askUserQuestionDenied: string;
+    echoSeparatorDenied: string;
+    printfSeparatorDenied: string;
+    verboseFileDumpDenied: string;
+    neoforgeClientLaunchDenied: string;
+    flutterRunDenied: string;
+    androidLaunchDenied: string;
+    rmOutsideWorkspaceAsk: string;
+    askUserQuestionDenied: string;
 }
 
 /** A single localizable message key from {@link Messages}. */

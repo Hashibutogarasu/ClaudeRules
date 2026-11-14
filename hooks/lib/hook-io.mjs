@@ -35,7 +35,10 @@ export class HookChannel {
      *   otherwise the hook process's own working directory.
      */
     static resolveWorkspaceRoot(input) {
-        return process.env.CLAUDE_PROJECT_DIR ?? (typeof input.cwd === "string" ? input.cwd : process.cwd());
+        return (
+            process.env.CLAUDE_PROJECT_DIR ??
+            (typeof input.cwd === "string" ? input.cwd : process.cwd())
+        );
     }
     /**
      * Writes a PreToolUse permission decision to stdout.

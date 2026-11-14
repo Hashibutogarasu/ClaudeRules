@@ -1,7 +1,7 @@
-import { HookRunner } from "./lib/run-hook.mjs";
-import { HookChannel } from "./lib/hook-io.mjs";
-import { CommandSplitter } from "./lib/shell.mjs";
 import { AndroidLaunchDeniedError } from "./lib/errors.mjs";
+import { HookChannel } from "./lib/hook-io.mjs";
+import { HookRunner } from "./lib/run-hook.mjs";
+import { CommandSplitter } from "./lib/shell.mjs";
 /**
  * Detects commands that install, launch, or otherwise interact with a real
  * Android device or emulator: `adb` (install, shell am start/monkey/
@@ -21,7 +21,9 @@ class AndroidLaunchDetector {
         /\bgradlew(?:\.bat)?\b[^&|;]*\binstall(Debug|Release)?\b/,
     ];
     static isAndroidLaunch(segment) {
-        return AndroidLaunchDetector.launchPatterns.some((pattern) => pattern.test(segment));
+        return AndroidLaunchDetector.launchPatterns.some((pattern) =>
+            pattern.test(segment),
+        );
     }
     /**
      * @param command - The Bash command about to run.
@@ -33,7 +35,11 @@ class AndroidLaunchDetector {
         }
         const segments = CommandSplitter.split(command);
         const targets = segments.length > 0 ? segments : [command];
-        if (targets.some((segment) => AndroidLaunchDetector.isAndroidLaunch(segment))) {
+        if (
+            targets.some((segment) =>
+                AndroidLaunchDetector.isAndroidLaunch(segment),
+            )
+        ) {
             throw new AndroidLaunchDeniedError();
         }
     }

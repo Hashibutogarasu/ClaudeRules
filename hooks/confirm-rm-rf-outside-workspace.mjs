@@ -1,8 +1,8 @@
 import { isAbsolute, relative, resolve } from "node:path";
-import { HookRunner } from "./lib/run-hook.mjs";
-import { HookChannel } from "./lib/hook-io.mjs";
-import { CommandSplitter } from "./lib/shell.mjs";
 import { RmOutsideWorkspaceAskError } from "./lib/errors.mjs";
+import { HookChannel } from "./lib/hook-io.mjs";
+import { HookRunner } from "./lib/run-hook.mjs";
+import { CommandSplitter } from "./lib/shell.mjs";
 /** Detects `rm -rf` (and equivalents) whose targets resolve outside the workspace root. */
 class RmOutsideWorkspaceDetector {
     static shortFlagPattern = /^-[a-zA-Z]+$/;
@@ -12,7 +12,9 @@ class RmOutsideWorkspaceDetector {
     static wordPattern = /"([^"]*)"|'([^']*)'|(\S+)/g;
     static tokenize(segment) {
         const tokens = [];
-        for (const match of segment.matchAll(RmOutsideWorkspaceDetector.wordPattern)) {
+        for (const match of segment.matchAll(
+            RmOutsideWorkspaceDetector.wordPattern,
+        )) {
             tokens.push(match[1] ?? match[2] ?? match[3]);
         }
         return tokens;
@@ -29,11 +31,13 @@ class RmOutsideWorkspaceDetector {
             }
             if (RmOutsideWorkspaceDetector.longRecursivePattern.test(token)) {
                 recursive = true;
-            }
-            else if (RmOutsideWorkspaceDetector.longForcePattern.test(token)) {
+            } else if (
+                RmOutsideWorkspaceDetector.longForcePattern.test(token)
+            ) {
                 force = true;
-            }
-            else if (RmOutsideWorkspaceDetector.shortFlagPattern.test(token)) {
+            } else if (
+                RmOutsideWorkspaceDetector.shortFlagPattern.test(token)
+            ) {
                 if (token.includes("r") || token.includes("R")) {
                     recursive = true;
                 }
@@ -84,12 +88,22 @@ class RmOutsideWorkspaceDetector {
                 continue;
             }
             const targets = RmOutsideWorkspaceDetector.extractTargets(tokens);
-            if (targets.some((target) => RmOutsideWorkspaceDetector.isOutsideWorkspace(target, workspaceRoot))) {
+            if (
+                targets.some((target) =>
+                    RmOutsideWorkspaceDetector.isOutsideWorkspace(
+                        target,
+                        workspaceRoot,
+                    ),
+                )
+            ) {
                 throw new RmOutsideWorkspaceAskError();
             }
         }
     }
 }
 void HookRunner.run((input) => {
-    RmOutsideWorkspaceDetector.check(HookChannel.extractBashCommand(input), HookChannel.resolveWorkspaceRoot(input));
+    RmOutsideWorkspaceDetector.check(
+        HookChannel.extractBashCommand(input),
+        HookChannel.resolveWorkspaceRoot(input),
+    );
 });

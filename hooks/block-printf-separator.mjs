@@ -1,22 +1,33 @@
-import { HookRunner } from "./lib/run-hook.mjs";
-import { HookChannel } from "./lib/hook-io.mjs";
-import { CommandSplitter } from "./lib/shell.mjs";
 import { PrintfSeparatorDeniedError } from "./lib/errors.mjs";
+import { HookChannel } from "./lib/hook-io.mjs";
+import { HookRunner } from "./lib/run-hook.mjs";
+import { CommandSplitter } from "./lib/shell.mjs";
 /** Detects `printf` invocations used purely as a visual separator between commands. */
 class PrintfSeparatorDetector {
-    static separatorContentPattern = new RegExp("^$" + "|^([-=_*#~+.^])\\1+(\\\\n)?$" + "|^[-=_*#~+]{2,}.*[-=_*#~+]{2,}(\\\\n)?$");
-    static printfInvocationPattern = /^printf\b(?:\s+-[a-zA-Z-]+)*\s*([\s\S]*)$/;
+    static separatorContentPattern = new RegExp(
+        "^$" +
+            "|^([-=_*#~+.^])\\1+(\\\\n)?$" +
+            "|^[-=_*#~+]{2,}.*[-=_*#~+]{2,}(\\\\n)?$",
+    );
+    static printfInvocationPattern =
+        /^printf\b(?:\s+-[a-zA-Z-]+)*\s*([\s\S]*)$/;
     static stripQuotes(value) {
         const trimmed = value.trim();
         const first = trimmed[0];
         const last = trimmed[trimmed.length - 1];
-        if (trimmed.length >= 2 && first === last && (first === '"' || first === "'")) {
+        if (
+            trimmed.length >= 2 &&
+            first === last &&
+            (first === '"' || first === "'")
+        ) {
             return trimmed.slice(1, -1).trim();
         }
         return trimmed;
     }
     static looksLikeSeparator(printfArgs) {
-        return PrintfSeparatorDetector.separatorContentPattern.test(PrintfSeparatorDetector.stripQuotes(printfArgs));
+        return PrintfSeparatorDetector.separatorContentPattern.test(
+            PrintfSeparatorDetector.stripQuotes(printfArgs),
+        );
     }
     /**
      * @param command - The Bash command about to run.
@@ -31,8 +42,12 @@ class PrintfSeparatorDetector {
             return;
         }
         const violated = segments.some((segment) => {
-            const match = PrintfSeparatorDetector.printfInvocationPattern.exec(segment);
-            return match !== null && PrintfSeparatorDetector.looksLikeSeparator(match[1]);
+            const match =
+                PrintfSeparatorDetector.printfInvocationPattern.exec(segment);
+            return (
+                match !== null &&
+                PrintfSeparatorDetector.looksLikeSeparator(match[1])
+            );
         });
         if (violated) {
             throw new PrintfSeparatorDeniedError();

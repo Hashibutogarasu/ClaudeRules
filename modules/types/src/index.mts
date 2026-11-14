@@ -1,2 +1,2 @@
-export type { HookInput, PermissionDecision, HookDecision } from "./hook.mjs";
-export type { Messages, MessageKey } from "./l10n.mjs";
+export type { HookDecision, HookInput, PermissionDecision } from "./hook.mjs";
+export type { MessageKey, Messages } from "./l10n.mjs";

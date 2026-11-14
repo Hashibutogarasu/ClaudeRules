@@ -1,5 +1,5 @@
-import { HookChannel } from "./hook-io.mjs";
 import { HookDecisionError } from "./errors.mjs";
+import { HookChannel } from "./hook-io.mjs";
 import { L10nGenerator } from "./l10n.mjs";
 /**
  * Wraps a hook's detection logic with the common PreToolUse entrypoint
@@ -16,10 +16,12 @@ export class HookRunner {
         const input = await HookChannel.readInput();
         try {
             await detect(input);
-        }
-        catch (error) {
+        } catch (error) {
             if (error instanceof HookDecisionError) {
-                HookChannel.writeDecision(error.decision, L10nGenerator.translate(error.l10nKey, error.params));
+                HookChannel.writeDecision(
+                    error.decision,
+                    L10nGenerator.translate(error.l10nKey, error.params),
+                );
                 return;
             }
             throw error;
