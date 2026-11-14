@@ -16,6 +16,7 @@ A Claude Code plugin providing a set of PreToolUse hooks, implemented in TypeScr
 
 - `/pr [base-branch]` — commits any pending changes and opens a pull request following this repo's commit message and PR body conventions (see `.github/PULL_REQUEST_TEMPLATE/`)
 - `/create-pr-template` — creates an AI-oriented PR template (`## Summary` / `## Check List`) at `.github/PULL_REQUEST_TEMPLATE/ai.md`, proposing to overwrite or keep it if one already exists, then opens a PR with the `pr` skill
+- `/create-default-branch-protection` — creates a ruleset (via `gh`) that lets the default branch be updated only through merged pull requests; stops if the `gh` account differs from the repository owner or an equivalent or stronger rule already exists
 
 ## Installation
 

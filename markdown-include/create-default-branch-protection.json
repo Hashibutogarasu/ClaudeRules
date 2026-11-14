@@ -1,0 +1,4 @@
+{
+    "build": "commands/create-default-branch-protection.md",
+    "files": ["commands-src/create-default-branch-protection.md"]
+}
